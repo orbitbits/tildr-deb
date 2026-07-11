@@ -1,0 +1,41 @@
+name: Build DEB
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ubuntu:noble
+    strategy:
+      matrix:
+        ubuntu: ['noble', 'oracular']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y dpkg-dev curl git
+
+      - name: Build DEB
+        run: make build
+
+      - name: Lint DEB
+        continue-on-error: true
+        run: |
+          apt-get install -y lintian
+          make lint
+
+      - name: Upload DEB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tildr-deb-${{ matrix.ubuntu }}
+          path: debbuild/*.deb
+          retention-days: 30

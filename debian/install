@@ -1,0 +1,4 @@
+tmp/tildr usr/bin/tildr
+tmp/tildr.py usr/share/nautilus-python/extensions/tildr.py
+tmp/tildr.desktop usr/share/kio/servicemenus/tildr.desktop
+tmp/LICENSE usr/share/doc/tildr/copyright

@@ -1,0 +1,12 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: tildr
+Upstream-Contact: William Canin <hello.williamcanin@gmail.com>
+Source: https://github.com/orbitbits/tildr
+
+Files: *
+Copyright: 2026 William Canin
+License: ElasticLicense-2.0
+
+License: ElasticLicense-2.0
+ This project is licensed under the Elastic License 2.0.
+ See https://www.elastic.co/licensing for details.

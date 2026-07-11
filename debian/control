@@ -1,0 +1,21 @@
+Source: tildr
+Section: utils
+Priority: optional
+Maintainer: William Canin <hello.williamcanin@gmail.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Homepage: https://orbitbits.com/tildr
+Vcs-Browser: https://github.com/orbitbits/tildr-deb
+Vcs-Git: https://github.com/orbitbits/tildr-deb.git
+
+Package: tildr
+Architecture: amd64
+Depends: git, less
+Recommends: nautilus-python, dolphin
+Description: Declarative CLI for managing your Linux HOME directory
+ Tildr is a declarative CLI tool for managing your Linux HOME directory
+ using symlinks and Git. It provides a simple way to dotfile management
+ across multiple machines.
+ .
+ Features include: init, add, apply, status, list, sync, restore,
+ unlink, and more. Supports Nautilus and Dolphin file manager plugins.
