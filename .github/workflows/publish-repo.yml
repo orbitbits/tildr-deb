@@ -116,8 +116,8 @@ jobs:
 
       - name: Export public key
         run: |
-          gpg --batch --yes --export -a "${{ steps.gpg.outputs.fingerprint }}" > repo/GPG-KEY-tildr
-          if [ ! -s repo/GPG-KEY-tildr ]; then
+          gpg --batch --yes --export -a "${{ steps.gpg.outputs.fingerprint }}" > repo/tildr-deb-pub.gpg
+          if [ ! -s repo/tildr-deb-pub.gpg ]; then
             echo "::error::Exported GPG public key file is empty"
             exit 1
           fi
