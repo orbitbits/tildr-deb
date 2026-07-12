@@ -163,7 +163,7 @@ https://orbitbits.com/tildr-deb/  (also reachable at https://orbitbits.github.io
 │   └── main/
 │       └── tildr_0.1.0_amd64.deb
 ├── dists/
-│   └── noble/
+│   └── stable/
 │       ├── InRelease
 │       ├── Release
 │       ├── Release.gpg

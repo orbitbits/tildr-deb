@@ -24,61 +24,11 @@ sudo apt update && sudo apt install tildr
 
 ### Via Direct DEB Download
 
-Download the `.deb` file from [releases](https://github.com/orbitbits/tildr/releases) and install:
+Download the `.deb` file from [releases](https://github.com/orbitbits/tildr-deb/tree/gh-pages/pool/main) and install:
 
 ```sh
 sudo dpkg -i ./tildr_*.deb
 sudo apt install -f  # Fix dependencies if needed
-```
-
----
-
-## Maintainer workflow
-
-### Prerequisites
-
-```sh
-sudo apt install dpkg-dev devscripts lintian curl git gnupg
-```
-
-### Build package
-
-```sh
-make build
-```
-
-### Install package local (test)
-
-```sh
-make install
-```
-
-> Note: Always test with `make install` before publishing.
-
-### Lint DEB package
-
-```sh
-make lint
-```
-
-### Show current version
-
-```sh
-make version
-```
-
-### Generate local repo (test)
-
-```sh
-make publish-repo
-```
-
-This creates a local APT repo structure in `repo/` for testing.
-
-### Clean all build files
-
-```sh
-make clean
 ```
 
 ---
@@ -110,23 +60,9 @@ and is intentionally **not** automated here — that step stays manual.
 
 ---
 
-## GitHub Secrets (for maintainers)
-
-| Secret            | Description                     |
-|-------------------|---------------------------------|
-| `GPG_PRIVATE_KEY` | GPG private key (ASCII-armored) |
-| `GPG_PASSPHRASE`  | GPG key passphrase              |
-
-Export your key:
-```sh
-gpg --export -a 'Your Key Name'
-```
-
----
-
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, build workflow, and how to publish manually.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, build workflow, and how to publish.
 
 ---
 
