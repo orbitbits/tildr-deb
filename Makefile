@@ -2,7 +2,7 @@
 #
 BRANCH := $(shell git branch --show-current 2>/dev/null || echo "unknown")
 REMOTES := $(shell git remote 2>/dev/null || echo "")
-VERSION := $(shell head -1 debian/changelog | grep -oP '\(.*?\)' | tr -d '()')
+VERSION := $(shell head -1 debian/changelog | grep -oP '\(.*?\)' | tr -d '()' | sed 's/-.*//')
 .DEFAULT_GOAL := help
 
 .PHONY: help build install lint version publish-repo clean push push-lease

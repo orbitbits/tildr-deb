@@ -6,8 +6,11 @@ set -euo pipefail
 # PKGVER can be injected by CI (e.g. from a repository_dispatch payload).
 # Falls back to the version pinned in debian/changelog for local/manual builds.
 # Strips leading 'v' if present (e.g. "v0.1.0" → "0.1.0").
+# Strips Debian revision suffix (e.g. "0.1.0-1" → "0.1.0") so download
+# URLs match the upstream release tag which does not include revisions.
 PKGVER="${PKGVER:-$(head -1 debian/changelog | grep -oP '\(.*?\)' | tr -d '()')}"
 PKGVER="${PKGVER#v}"
+PKGVER="${PKGVER%%-*}"
 PKGNAME="tildr"
 REPO="orbitbits/tildr"
 TAG="v${PKGVER}"
