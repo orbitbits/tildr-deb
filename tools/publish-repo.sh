@@ -56,10 +56,11 @@ copy_debs() {
 # --- Generate metadata ---
 generate_metadata() {
   info "Generating repository metadata..."
+  cd "${REPO_DIR}" || exit
   for codename in $UBUNTU_CODENAMES; do
-    local dir="${REPO_DIR}/dists/${codename}/main/binary-amd64"
+    local dir="dists/${codename}/main/binary-amd64"
     if [ -d "$dir" ]; then
-      dpkg-scanpackages --arch amd64 "${REPO_DIR}/pool/" /dev/null > "${dir}/Packages"
+      dpkg-scanpackages --arch amd64 pool/ /dev/null > "${dir}/Packages"
       gzip -9 -k -f "${dir}/Packages"
     fi
   done
@@ -67,7 +68,6 @@ generate_metadata() {
   # Generate Release files with proper hash entries using apt-ftparchive
   info "Generating Release files with hashes..."
   for codename in $UBUNTU_CODENAMES; do
-    cd "${REPO_DIR}" || exit
     apt-ftparchive \
       -o APT::FTPArchive::Release::Origin="Tildr" \
       -o APT::FTPArchive::Release::Label="Tildr APT Repository" \
@@ -77,8 +77,8 @@ generate_metadata() {
       -o APT::FTPArchive::Release::Components="main" \
       -o APT::FTPArchive::Release::Description="APT repository for Tildr" \
       release "dists/${codename}" > "dists/${codename}/Release"
-    cd - >/dev/null || exit
   done
+  cd - >/dev/null || exit
 }
 
 # --- Sign Release files ---

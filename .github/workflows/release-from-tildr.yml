@@ -165,16 +165,16 @@ jobs:
 
       - name: Generate repository metadata
         run: |
+          cd repo
           for codename in stable; do
-            dir="repo/dists/${codename}/main/binary-amd64"
+            dir="dists/${codename}/main/binary-amd64"
             echo "Creating Packages for ${codename}..."
-            dpkg-scanpackages --arch amd64 repo/pool/ /dev/null > "${dir}/Packages"
+            dpkg-scanpackages --arch amd64 pool/ /dev/null > "${dir}/Packages"
             gzip -9 -k -f "${dir}/Packages"
           done
 
           for codename in stable; do
             echo "Creating Release with hashes for ${codename}..."
-            cd repo
             apt-ftparchive \
               -o APT::FTPArchive::Release::Origin="Tildr" \
               -o APT::FTPArchive::Release::Label="Tildr APT Repository" \
@@ -184,7 +184,6 @@ jobs:
               -o APT::FTPArchive::Release::Components="main" \
               -o APT::FTPArchive::Release::Description="APT repository for Tildr" \
               release "dists/${codename}" > "dists/${codename}/Release"
-            cd -
           done
 
       - name: Sign Release files
