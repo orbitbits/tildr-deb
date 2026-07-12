@@ -174,7 +174,7 @@ make push-lease    # push --force-with-lease to all remotes
 
 ## Official page
 
-https://orbitbits.com/tildr/
+[https://orbitbits.com/tildr](https://orbitbits.com/tildr)
 
 ---
 
