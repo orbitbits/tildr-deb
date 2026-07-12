@@ -3,14 +3,12 @@
 set -euo pipefail
 
 # --- VARIABLES ---
-# PKGVER can be injected by CI (e.g. from a repository_dispatch payload).
-# Falls back to the version pinned in debian/changelog for local/manual builds.
-# Strips leading 'v' if present (e.g. "v0.1.0" → "0.1.0").
-# Strips Debian revision suffix (e.g. "0.1.0-1" → "0.1.0") so download
-# URLs match the upstream release tag which does not include revisions.
-PKGVER="${PKGVER:-$(head -1 debian/changelog | grep -oP '\(.*?\)' | tr -d '()')}"
-PKGVER="${PKGVER#v}"
-PKGVER="${PKGVER%%-*}"
+# PKGVER_FULL is the full Debian version including revision (e.g. "0.1.0-1").
+# PKGVER is the upstream version only (e.g. "0.1.0"), used for download URLs.
+# Both can be injected by CI; falls back to debian/changelog for local builds.
+PKGVER_FULL="${PKGVER:-$(head -1 debian/changelog | grep -oP '\(.*?\)' | tr -d '()')}"
+PKGVER_FULL="${PKGVER_FULL#v}"
+PKGVER="${PKGVER_FULL%%-*}"
 PKGNAME="tildr"
 REPO="orbitbits/tildr"
 TAG="v${PKGVER}"
@@ -44,7 +42,7 @@ _binary_name="${PKGNAME}-${PKGVER}-linux-x86_64"
 
 # --- Create debbuild structure ---
 setup_deb_dirs() {
-  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER}_amd64"
+  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER_FULL}_amd64"
   mkdir -p "${pkgdir}/DEBIAN"
   mkdir -p "${pkgdir}/usr/bin"
   mkdir -p "${pkgdir}/usr/share/man/man1"
@@ -70,7 +68,7 @@ download() {
 # Binary comes from the GitHub release; man pages, plugins and LICENSE
 # are extracted from the auto-generated source tarball for the tag.
 download_sources() {
-  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER}_amd64"
+  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER_FULL}_amd64"
 
   download "${_release_base}/${_binary_name}" \
     "${pkgdir}/usr/bin/tildr" "release binary (${_binary_name})" || {
@@ -152,11 +150,11 @@ download_sources() {
 
 # --- Generate DEBIAN/control ---
 generate_control() {
-  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER}_amd64"
+  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER_FULL}_amd64"
 
   cat > "${pkgdir}/DEBIAN/control" <<EOF
 Package: ${PKGNAME}
-Version: ${PKGVER}
+Version: ${PKGVER_FULL}
 Section: utils
 Priority: optional
 Architecture: amd64
@@ -177,7 +175,7 @@ EOF
 
 # --- Generate DEBIAN/postinst ---
 generate_postinst() {
-  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER}_amd64"
+  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER_FULL}_amd64"
 
   cat > "${pkgdir}/DEBIAN/postinst" <<'POSTINST'
 #!/bin/sh
@@ -198,7 +196,7 @@ POSTINST
 
 # --- Generate DEBIAN/prerm ---
 generate_prerm() {
-  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER}_amd64"
+  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER_FULL}_amd64"
 
   cat > "${pkgdir}/DEBIAN/prerm" <<'PRERM'
 #!/bin/sh
@@ -214,8 +212,8 @@ PRERM
 # --- Build DEB ---
 build_deb() {
   info "Building DEB package..."
-  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER}_amd64"
-  local deb_file="${BUILD_DIR}/${PKGNAME}_${PKGVER}_amd64.deb"
+  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER_FULL}_amd64"
+  local deb_file="${BUILD_DIR}/${PKGNAME}_${PKGVER_FULL}_amd64.deb"
 
   dpkg-deb --build "${pkgdir}" "${deb_file}"
   expectation $? success "Success! DEB build complete"
@@ -224,8 +222,8 @@ build_deb() {
 # --- Install DEB ---
 install_deb() {
   info "Building and installing DEB package..."
-  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER}_amd64"
-  local deb_file="${BUILD_DIR}/${PKGNAME}_${PKGVER}_amd64.deb"
+  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER_FULL}_amd64"
+  local deb_file="${BUILD_DIR}/${PKGNAME}_${PKGVER_FULL}_amd64.deb"
 
   dpkg-deb --build "${pkgdir}" "${deb_file}"
   expectation $? success "Build complete. Installing..."
@@ -247,7 +245,7 @@ lint_deb() {
     return 1
   fi
 
-  local deb_file="${BUILD_DIR}/${PKGNAME}_${PKGVER}_amd64.deb"
+  local deb_file="${BUILD_DIR}/${PKGNAME}_${PKGVER_FULL}_amd64.deb"
   if [ ! -f "$deb_file" ]; then
     warn "No DEB found. Run 'make build' first."
     return 1
