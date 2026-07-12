@@ -50,6 +50,8 @@ jobs:
           fi
 
       - name: Download DEBs from release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG="${{ steps.tag.outputs.tag }}"
           mkdir -p tmp-debs
