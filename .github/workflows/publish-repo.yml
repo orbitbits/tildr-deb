@@ -60,7 +60,7 @@ jobs:
       - name: Setup repo structure
         run: |
           mkdir -p repo/pool/main
-          for codename in noble; do
+          for codename in stable; do
             mkdir -p "repo/dists/${codename}/main/binary-amd64"
           done
 
@@ -72,7 +72,7 @@ jobs:
 
       - name: Generate repository metadata
         run: |
-          for codename in noble; do
+          for codename in stable; do
             dir="repo/dists/${codename}/main/binary-amd64"
             echo "Creating repo metadata for Ubuntu ${codename}..."
             dpkg-scanpackages --arch amd64 repo/pool/ /dev/null > "${dir}/Packages"
@@ -94,7 +94,7 @@ jobs:
         run: |
           echo "${{ secrets.GPG_PASSPHRASE }}" > /tmp/.gpg-passphrase
 
-          for codename in noble; do
+          for codename in stable; do
             release_file="repo/dists/${codename}/Release"
             if [ -f "$release_file" ]; then
               echo "Signing Release -> InRelease for ${codename}..."
