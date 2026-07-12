@@ -1,0 +1,43 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Architectures: amd64
+Codename: stable
+Components: main
+Date: Sun, 12 Jul 2026 18:44:39 +0000
+Description: APT repository for Tildr
+Label: Tildr APT Repository
+Origin: Tildr
+Suite: stable
+MD5Sum:
+ 678f5d87e75c6ccf1eef002872046ef9              187 Release
+ 180efa8f7229ecc5e8c534060a9d3993              853 main/binary-amd64/Packages
+ 09b45bdeaa8ddc9ec842873e0f42c451              576 main/binary-amd64/Packages.gz
+SHA1:
+ fe057c0fe64872d5c7ac51d46af807ee3a4f7b0e              187 Release
+ 219fcd53dfb853d3aa3430436b375eb8026b9153              853 main/binary-amd64/Packages
+ 9587499e694a83ef7d9cea9a39f6dd16ea0eb028              576 main/binary-amd64/Packages.gz
+SHA256:
+ 9b2ebddac48bc5ea9b9a74343449f781b33a0afa61e0cc692da94be0c14ad34b              187 Release
+ 2c127dcf45378c5a0f1513d35605521905c4265aa5de0be90cd2b035acdb194f              853 main/binary-amd64/Packages
+ 05152d6a71ce70c25fd09acf580e01f3bb59e87023646485c359fe9d273395d0              576 main/binary-amd64/Packages.gz
+SHA512:
+ ddcf4431198b805be1028cd89b4c96ea55287e6adbf11a42990ffd9f0e627a088308e82d679bb3c2a8bee88f8caed64d448860f2da2fec074a07b3d56201c650              187 Release
+ ceda070e7c78324f77bfa9b79fea0e34fe52055e39587f21adc3fc4fca0c326bd68a21884f54e1febdbeda9be36f77814125c625493b783bf20456df0eac15e5              853 main/binary-amd64/Packages
+ 90a4008a9a8ad68b0dfab310461833cdcd1d16fc44632238c7940d22390d6bfeb0553b56bf09c52abc5dfecfcc3b86a9e1a39da1259b5c507d6810340e91b41a              576 main/binary-amd64/Packages.gz
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE3igUnoKkblGCxC5xb8SQYTAgM2gFAmpT4JcACgkQb8SQYTAg
+M2h9bRAAnisLBf6Kpq3MXpjghsapcVwQcISEsfuZKykzmCOb4UHnLw3qujrGzRC7
+6W726G54Adaz8Tlwr0L3r38A0Cnx7vYmGDfU0O6olb9iTMy13/e7w7AQKXc3dvJ5
+Jt0BLyeW/PnFkS6Dbe1BUjDNH4+G8GcECudKloskpzj2MTWvYO+aT4tNavAmrKtd
+QWjCX6U1JOswfLuEr+Ts27a0ulosYx456GK7xs8xmUzgFz8aXYDMTnt9u5RZmrld
+e5VhziCpo+/D7bKi4AvkaD7mVqYgsxvs4BoUHqhTZjvOYrBlgpFlchAqL66t63eJ
+zSWY67Ya1sRhStcFezVyzgjBbdiMQ36ZWx/doozEmvqlyhO6gmgI7gpHwkzGsuY6
+/sqZ4I6F1fL2SYQFfqJpQnVfbpHPusyEWy0XmxAvnPA9GiFxBO8xTzROdmhixa4f
+pM7y4IiR/VgQV9B4qHmh6JPt/oe9C9geUOJRPko1is5cr6MWyMu3T2vFGED5nvh4
+n3uZ/J1k6SR0ukDsrv9xRyYhFvn/VJe+aWtXdxRWtDHI6NU6WXRsJ71t2X6l4gzB
+tgE5yiywHwtu6xTXMLoJyKibEcToGpqfpNpq9KbtDZDG5gSZ8FOhlkzc3yTFuGrm
+dRaQdA9A4EtBIDT+Q0LPC3mAe7iKHArsJiM20NB/FYF8byxMuwg=
+=1gSe
+-----END PGP SIGNATURE-----
