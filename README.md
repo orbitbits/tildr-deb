@@ -167,7 +167,6 @@ make push-lease    # push --force-with-lease to all remotes
 ## Supported distros
 
 * Ubuntu 24.04 LTS (Noble)
-* Ubuntu 24.10 (Oracular)
 * Debian 12 (Bookworm)
 * Any Debian-based distro with `dpkg`
 

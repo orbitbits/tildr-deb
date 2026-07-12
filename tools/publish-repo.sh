@@ -8,7 +8,7 @@ set -euo pipefail
 # --- VARIABLES ---
 BUILD_DIR="debbuild"
 REPO_DIR="repo"
-UBUNTU_CODENAMES="noble oracular"
+UBUNTU_CODENAMES="noble"
 
 # --- UI ---
 info()    { printf "\033[0;36m-> %s\033[0m\n" "$1"; }

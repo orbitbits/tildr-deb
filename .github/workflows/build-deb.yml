@@ -13,7 +13,7 @@ jobs:
     container: ubuntu:${{ matrix.ubuntu }}
     strategy:
       matrix:
-        ubuntu: ['noble', 'oracular']
+        ubuntu: ['noble']
 
     steps:
       - name: Checkout
