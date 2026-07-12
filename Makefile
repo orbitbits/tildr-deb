@@ -1,7 +1,7 @@
 # ----- Makefile -----
 #
-BRANCH := $(shell git branch --show-current)
-REMOTES := $(shell git remote)
+BRANCH := $(shell git branch --show-current 2>/dev/null || echo "unknown")
+REMOTES := $(shell git remote 2>/dev/null || echo "")
 VERSION := $(shell head -1 debian/changelog | grep -oP '\(.*?\)' | tr -d '()')
 .DEFAULT_GOAL := help
 
@@ -12,7 +12,7 @@ help:
 	@echo
 	@echo "  make build        -> Build the DEB package"
 	@echo "  make install      -> Build and install the DEB package"
-	@echo "  make lint         -> Validate control file with lintian"
+	@echo "  make lint         -> Validate DEB package with lintian"
 	@echo "  make version      -> Show current package version"
 	@echo "  make publish-repo -> Generate local APT repo for testing"
 	@echo "  make clean        -> Clean all build files"

@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: ubuntu:noble
+    container: ubuntu:${{ matrix.ubuntu }}
     strategy:
       matrix:
         ubuntu: ['noble', 'oracular']
@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get install -y dpkg-dev curl git
+          apt-get install -y dpkg-dev curl git make
 
       - name: Build DEB
         run: make build

@@ -13,10 +13,10 @@
 
 ```sh
 # Import GPG key
-curl -fsSL https://orbitbits.github.io/tildr-deb/GPG-KEY-tildr | sudo gpg --dearmor -o /usr/share/keyrings/tildr.gpg
+curl -fsSL https://orbitbits.com/tildr-deb/GPG-KEY-tildr | sudo gpg --dearmor -o /usr/share/keyrings/tildr.gpg
 
 # Add repository
-echo "deb [signed-by=/usr/share/keyrings/tildr.gpg] https://orbitbits.github.io/tildr-deb/ stable main" | sudo tee /etc/apt/sources.list.d/tildr.list
+echo "deb [signed-by=/usr/share/keyrings/tildr.gpg] https://orbitbits.com/tildr-deb/ stable main" | sudo tee /etc/apt/sources.list.d/tildr.list
 
 # Install
 sudo apt update && sudo apt install tildr
@@ -85,14 +85,28 @@ make clean
 
 ## Publishing a release
 
-1. Update version in `tools/main.sh` and `debian/changelog`
-2. Build and test: `make build && make install`
-3. Commit and create a GitHub release with the DEB attached
-4. The `publish-repo.yml` workflow automatically:
-   - Downloads the DEB from the release
-   - Generates APT repository metadata
-   - Signs packages with GPG
-   - Deploys to GitHub Pages
+Releases are **fully automatic**. Every Saturday at 00:00 UTC a cron job
+checks [orbitbits/tildr](https://github.com/orbitbits/tildr) for new
+releases. When a new tag is detected, the workflow automatically:
+
+1. Builds DEBs for Ubuntu Noble
+2. Creates a GitHub Release with the DEBs attached
+3. Publishes the APT repository to GitHub Pages
+
+No manual intervention needed — just release on `tildr` and this repo
+picks it up within a week.
+
+### Manual trigger
+
+You can also trigger the workflow manually from the Actions tab
+(`workflow_dispatch`) to build immediately without waiting for the cron.
+
+### Publishing to official Debian/Ubuntu
+
+The flow above only covers **this repo's own releases** (distributed via
+your own GitHub Pages repo). Submitting to the official Debian/Ubuntu
+repositories goes through Debian's own review (ITP) and upload process,
+and is intentionally **not** automated here — that step stays manual.
 
 ---
 
@@ -107,6 +121,12 @@ Export your key:
 ```sh
 gpg --export -a 'Your Key Name'
 ```
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, build workflow, and how to publish manually.
 
 ---
 
@@ -129,8 +149,9 @@ make push-lease    # push --force-with-lease to all remotes
 * `debian/tildr.manpages` — Man pages to install
 * `tools/main.sh` — Build script with download, setup, and packaging logic
 * `tools/publish-repo.sh` — Local APT repo generation script
-* `.github/workflows/build-deb.yml` — GitHub Actions CI workflow
-* `.github/workflows/publish-repo.yml` — APT repo publication workflow
+* `.github/workflows/build-deb.yml` — CI build workflow (push/PR)
+* `.github/workflows/release-from-tildr.yml` — Auto-release from tildr (weekly cron)
+* `.github/workflows/publish-repo.yml` — APT repo publication to GitHub Pages
 * `repo/tildr.list` — APT sources list configuration file
 
 ---

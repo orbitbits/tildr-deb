@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 # Maintainer: William Canin <hello.williamcanin@gmail.com>
+set -euo pipefail
 
 # --- VARIABLES ---
-PKGVER="0.1.0"
+# PKGVER can be injected by CI (e.g. from a repository_dispatch payload).
+# Falls back to the version pinned in debian/changelog for local/manual builds.
+# Strips leading 'v' if present (e.g. "v0.1.0" → "0.1.0").
+PKGVER="${PKGVER:-$(head -1 debian/changelog | grep -oP '\(.*?\)' | tr -d '()')}"
+PKGVER="${PKGVER#v}"
 PKGNAME="tildr"
 REPO="orbitbits/tildr"
-BRANCH="main"
+TAG="v${PKGVER}"
 BUILD_DIR="debbuild"
 
 # --- UI ---
@@ -20,13 +25,19 @@ warn()    { printf "\033[0;33m! %s\033[0m\n" "$1"; }
 command -v git >/dev/null || { error "git is required"; exit 1; }
 command -v dpkg-deb >/dev/null || { error "dpkg-deb not found. Install: apt install dpkg-dev"; exit 1; }
 
-if [ "$(id -u)" -eq 0 ]; then error "Do not run as root or sudo"; exit 1; fi
+if [ "$(id -u)" -eq 0 ] && [ -z "${CI:-}" ]; then
+  error "Do not run as root or sudo"
+  exit 1
+fi
 
 # --- URLs ---
+# NOTE: sources are pinned to the release tag (${TAG}), never to "main".
+# This guarantees the package always matches exactly what was released,
+# even if the main branch has moved on since then.
 _github_base="https://github.com/${REPO}"
-_raw_base="https://raw.githubusercontent.com/${REPO}/${BRANCH}"
-_release_base="${_github_base}/releases/download/v${PKGVER}"
-_man_base="${_raw_base}/docs/man/dist"
+_release_base="${_github_base}/releases/download/${TAG}"
+_tarball_url="https://api.github.com/repos/${REPO}/tarball/${TAG}"
+_binary_name="${PKGNAME}-${PKGVER}-linux-x86_64"
 
 # --- Create debbuild structure ---
 setup_deb_dirs() {
@@ -53,31 +64,87 @@ download() {
 }
 
 # --- Download sources ---
+# Binary comes from the GitHub release; man pages, plugins and LICENSE
+# are extracted from the auto-generated source tarball for the tag.
 download_sources() {
   local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER}_amd64"
 
-  download "${_release_base}/tildr-${PKGVER}-linux-x86_64" \
-    "${pkgdir}/usr/bin/tildr" "binary" || return 1
+  download "${_release_base}/${_binary_name}" \
+    "${pkgdir}/usr/bin/tildr" "release binary (${_binary_name})" || {
+    error "Could not find ${_binary_name} on the ${TAG} release."
+    error "Make sure the Tildr release workflow publishes a linux binary"
+    error "for this version before retrying."
+    return 1
+  }
   chmod 755 "${pkgdir}/usr/bin/tildr"
 
-  download "${_man_base}/tildr.1" \
-    "${pkgdir}/usr/share/man/man1/tildr.1" "tildr.1" || return 1
-  download "${_man_base}/tildr-config.1" \
-    "${pkgdir}/usr/share/man/man1/tildr-config.1" "tildr-config.1" || return 1
-  download "${_man_base}/tildr-commands.1" \
-    "${pkgdir}/usr/share/man/man1/tildr-commands.1" "tildr-commands.1" || return 1
-  download "${_man_base}/tildr-security.1" \
-    "${pkgdir}/usr/share/man/man1/tildr-security.1" "tildr-security.1" || return 1
-  download "${_man_base}/tildr-plugins.1" \
-    "${pkgdir}/usr/share/man/man1/tildr-plugins.1" "tildr-plugins.1" || return 1
+  local tmp_tarball
+  tmp_tarball=$(mktemp -d)
 
-  download "${_raw_base}/tools/plugins/nautilus/tildr.py" \
-    "${pkgdir}/usr/share/nautilus-python/extensions/tildr.py" "Nautilus plugin" || return 1
-  download "${_raw_base}/tools/plugins/dolphin/tildr.desktop" \
-    "${pkgdir}/usr/share/kio/servicemenus/tildr.desktop" "Dolphin plugin" || return 1
+  download "${_tarball_url}" \
+    "${tmp_tarball}/source.tar.gz" "source tarball (${TAG})" || {
+    error "Could not download source tarball for ${TAG}."
+    rm -rf "${tmp_tarball}"
+    return 1
+  }
 
-  download "${_raw_base}/LICENSE" \
-    "${pkgdir}/usr/share/doc/${PKGNAME}/copyright" "LICENSE" || return 1
+  info "Extracting source tarball..."
+  tar -xzf "${tmp_tarball}/source.tar.gz" -C "${tmp_tarball}" || {
+    error "Failed to extract source tarball"
+    rm -rf "${tmp_tarball}"
+    return 1
+  }
+
+  local src_root
+  src_root=$(find "${tmp_tarball}" -mindepth 1 -maxdepth 1 -type d -name "*-${REPO##*/}-*" | head -1)
+  if [ -z "${src_root}" ]; then
+    error "Could not locate extracted source directory inside tarball"
+    rm -rf "${tmp_tarball}"
+    return 1
+  fi
+
+  local man_files=(
+    "tildr.1"
+    "tildr-config.1"
+    "tildr-commands.1"
+    "tildr-security.1"
+    "tildr-plugins.1"
+  )
+  for mf in "${man_files[@]}"; do
+    if [ -f "${src_root}/docs/man/dist/${mf}" ]; then
+      cp "${src_root}/docs/man/dist/${mf}" "${pkgdir}/usr/share/man/man1/${mf}"
+    else
+      error "Man page ${mf} not found in source tarball"
+      rm -rf "${tmp_tarball}"
+      return 1
+    fi
+  done
+
+  if [ -f "${src_root}/tools/plugins/nautilus/tildr.py" ]; then
+    cp "${src_root}/tools/plugins/nautilus/tildr.py" "${pkgdir}/usr/share/nautilus-python/extensions/tildr.py"
+  else
+    error "Nautilus plugin not found in source tarball"
+    rm -rf "${tmp_tarball}"
+    return 1
+  fi
+
+  if [ -f "${src_root}/tools/plugins/dolphin/tildr.desktop" ]; then
+    cp "${src_root}/tools/plugins/dolphin/tildr.desktop" "${pkgdir}/usr/share/kio/servicemenus/tildr.desktop"
+  else
+    error "Dolphin plugin not found in source tarball"
+    rm -rf "${tmp_tarball}"
+    return 1
+  fi
+
+  if [ -f "${src_root}/LICENSE" ]; then
+    cp "${src_root}/LICENSE" "${pkgdir}/usr/share/doc/${PKGNAME}/copyright"
+  else
+    error "LICENSE not found in source tarball"
+    rm -rf "${tmp_tarball}"
+    return 1
+  fi
+
+  rm -rf "${tmp_tarball}"
 }
 
 # --- Generate DEBIAN/control ---
@@ -139,13 +206,6 @@ if [ "$1" = "remove" ]; then
 fi
 PRERM
   chmod 755 "${pkgdir}/DEBIAN/prerm"
-}
-
-# --- Generate DEBIAN/conffiles ---
-generate_conffiles() {
-  local pkgdir="${BUILD_DIR}/${PKGNAME}_${PKGVER}_amd64"
-  # No conffiles for this package
-  touch "${pkgdir}/DEBIAN/conffiles"
 }
 
 # --- Build DEB ---
@@ -221,7 +281,6 @@ case "${1:-}" in
     generate_control
     generate_postinst
     generate_prerm
-    generate_conffiles
     build_deb
     ;;
   install)
@@ -230,7 +289,6 @@ case "${1:-}" in
     generate_control
     generate_postinst
     generate_prerm
-    generate_conffiles
     install_deb
     ;;
   lint)

@@ -3,11 +3,12 @@
 #
 # Local script to test APT repository generation.
 # This simulates what the GitHub Actions workflow does.
+set -euo pipefail
 
 # --- VARIABLES ---
 BUILD_DIR="debbuild"
 REPO_DIR="repo"
-UBUNTU_VERSIONS="noble oracular"
+UBUNTU_CODENAMES="noble oracular"
 
 # --- UI ---
 info()    { printf "\033[0;36m-> %s\033[0m\n" "$1"; }
@@ -19,7 +20,10 @@ success() { printf "\033[0;32m* %s\033[0m\n" "$1"; }
 command -v dpkg-scanpackages >/dev/null || { error "dpkg-scanpackages not found. Install: apt install dpkg-dev"; exit 1; }
 command -v gpg >/dev/null || { error "gpg not found"; exit 1; }
 
-if [ "$(id -u)" -eq 0 ]; then { error "Do not run as root or sudo"; exit 1; } fi
+if [ "$(id -u)" -eq 0 ] && [ -z "${CI:-}" ]; then
+  error "Do not run as root or sudo"
+  exit 1
+fi
 
 # --- Find DEB ---
 find_deb() {
@@ -35,8 +39,8 @@ find_deb() {
 # --- Setup repo structure ---
 setup_repo() {
   info "Setting up repo structure..."
-  for codename in $UBUNTU_VERSIONS; do
-    mkdir -p "${REPO_DIR}/pool/main"
+  mkdir -p "${REPO_DIR}/pool/main"
+  for codename in $UBUNTU_CODENAMES; do
     mkdir -p "${REPO_DIR}/dists/${codename}/main/binary-amd64"
   done
 }
@@ -51,7 +55,7 @@ copy_debs() {
 # --- Generate metadata ---
 generate_metadata() {
   info "Generating repository metadata..."
-  for codename in $UBUNTU_VERSIONS; do
+  for codename in $UBUNTU_CODENAMES; do
     local dir="${REPO_DIR}/dists/${codename}/main/binary-amd64"
     if [ -d "$dir" ]; then
       dpkg-scanpackages --arch amd64 "${REPO_DIR}/pool/" /dev/null > "${dir}/Packages"
@@ -76,7 +80,7 @@ EOF
 # --- Sign packages ---
 sign_packages() {
   info "Signing Packages files..."
-  for codename in $UBUNTU_VERSIONS; do
+  for codename in $UBUNTU_CODENAMES; do
     local packages_gz="${REPO_DIR}/dists/${codename}/main/binary-amd64/Packages.gz"
     if [ -f "$packages_gz" ]; then
       gpg --detach-sign --armor "$packages_gz"
