@@ -76,7 +76,7 @@ generate_metadata() {
       -o APT::FTPArchive::Release::Architectures="amd64" \
       -o APT::FTPArchive::Release::Components="main" \
       -o APT::FTPArchive::Release::Description="APT repository for Tildr" \
-      release "dists/${codename}" > /dev/null
+      release "dists/${codename}" > "dists/${codename}/Release"
     cd - >/dev/null || exit
   done
 }
