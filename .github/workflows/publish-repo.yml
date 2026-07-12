@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y dpkg-dev gnupg
+          sudo apt-get install -y dpkg-dev apt-utils gnupg
 
       - name: Import GPG key
         id: gpg
@@ -74,20 +74,24 @@ jobs:
         run: |
           for codename in stable; do
             dir="repo/dists/${codename}/main/binary-amd64"
-            echo "Creating repo metadata for Ubuntu ${codename}..."
+            echo "Creating Packages for ${codename}..."
             dpkg-scanpackages --arch amd64 repo/pool/ /dev/null > "${dir}/Packages"
             gzip -9 -k -f "${dir}/Packages"
+          done
 
-            cat > "repo/dists/${codename}/Release" <<EOF
-          Origin: Tildr
-          Label: Tildr APT Repository
-          Suite: stable
-          Codename: ${codename}
-          Architectures: amd64
-          Components: main
-          Description: APT repository for Tildr
-          Date: $(date -Ru)
-          EOF
+          for codename in stable; do
+            echo "Creating Release with hashes for ${codename}..."
+            cd repo
+            apt-ftparchive \
+              -o APT::FTPArchive::Release::Origin="Tildr" \
+              -o APT::FTPArchive::Release::Label="Tildr APT Repository" \
+              -o APT::FTPArchive::Release::Suite="${codename}" \
+              -o APT::FTPArchive::Release::Codename="${codename}" \
+              -o APT::FTPArchive::Release::Architectures="amd64" \
+              -o APT::FTPArchive::Release::Components="main" \
+              -o APT::FTPArchive::Release::Description="APT repository for Tildr" \
+              release "dists/${codename}" > /dev/null
+            cd -
           done
 
       - name: Sign Release files
