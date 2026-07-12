@@ -24,7 +24,7 @@ sudo apt update && sudo apt install tildr
 
 ### Via Direct DEB Download
 
-Download the `.deb` file from [releases](https://github.com/orbitbits/tildr-deb/releases) and install:
+Download the `.deb` file from [releases](https://github.com/orbitbits/tildr-deb/tree/gh-pages/pool/main) and install:
 
 ```sh
 sudo dpkg -i ./tildr_*.deb

@@ -95,6 +95,9 @@ jobs:
               release "dists/${codename}" > "dists/${codename}/Release"
           done
 
+      - name: Generate directory index
+        run: bash tools/generate-index.sh repo
+
       - name: Sign Release files
         run: |
           echo "${{ secrets.GPG_PASSPHRASE }}" > /tmp/.gpg-passphrase
