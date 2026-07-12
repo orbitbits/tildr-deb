@@ -53,7 +53,7 @@ jobs:
     needs: check
     if: needs.check.outputs.should_build == 'true'
     runs-on: ubuntu-latest
-    container: ubuntu:stable
+    container: ubuntu:noble
 
     steps:
       - name: Checkout
