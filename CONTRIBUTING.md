@@ -91,6 +91,31 @@ sudo apt update && sudo apt install tildr
 make clean
 ```
 
+## Publishing a release
+
+Releases are **fully automatic**. Every Saturday at 00:00 UTC a cron job
+checks [orbitbits/tildr](https://github.com/orbitbits/tildr) for new
+releases. When a new tag is detected, the workflow automatically:
+
+1. Builds DEBs for Ubuntu Noble
+2. Creates a GitHub Release with the DEBs attached
+3. Publishes the APT repository to GitHub Pages
+
+No manual intervention needed — just release on `tildr` and this repo
+picks it up within a week.
+
+### Manual trigger
+
+You can also trigger the workflow manually from the Actions tab
+(`workflow_dispatch`) to build immediately without waiting for the cron.
+
+### Publishing to official Debian/Ubuntu
+
+The flow above only covers **this repo's own releases** (distributed via
+your own GitHub Pages repo). Submitting to the official Debian/Ubuntu
+repositories goes through Debian's own review (ITP) and upload process,
+and is intentionally **not** automated here — that step stays manual.
+
 ## Publishing a DEB manually
 
 If you need to publish a release **without waiting for the Saturday cron**:
@@ -153,6 +178,19 @@ by fingerprint automatically, see `publish-repo.yml`):
 ```sh
 gpg --export -a "$(gpg --list-secret-keys --with-colons | awk -F: '/^fpr:/{print $10; exit}')" > tildr-deb-pub.gpg
 ```
+
+## Git helpers
+
+```sh
+make push          # push to all remotes
+make push-lease    # push --force-with-lease to all remotes
+```
+
+## Notes
+
+* This repository does **not** contain the source code.
+* The build script downloads the binary directly from GitHub releases.
+* Always test with `make install` before publishing.
 
 ## APT repository structure (after publish)
 
