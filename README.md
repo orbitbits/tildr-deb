@@ -112,10 +112,10 @@ and is intentionally **not** automated here — that step stays manual.
 
 ## GitHub Secrets (for maintainers)
 
-| Secret | Description |
-|--------|-------------|
+| Secret            | Description                     |
+|-------------------|---------------------------------|
 | `GPG_PRIVATE_KEY` | GPG private key (ASCII-armored) |
-| `GPG_PASSPHRASE` | GPG key passphrase |
+| `GPG_PASSPHRASE`  | GPG key passphrase              |
 
 Export your key:
 ```sh
