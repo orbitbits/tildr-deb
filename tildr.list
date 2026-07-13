@@ -1,1 +1,1 @@
-deb [signed-by=/usr/share/keyrings/tildr.gpg] https://orbitbits.com/tildr-deb/ stable main
+deb [signed-by=/usr/share/keyrings/tildr.gpg] https://deb.orbitbits.com/ stable main

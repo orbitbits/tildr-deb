@@ -4,40 +4,40 @@ Hash: SHA512
 Architectures: amd64
 Codename: stable
 Components: main
-Date: Sun, 12 Jul 2026 18:44:39 +0000
+Date: Mon, 13 Jul 2026 02:08:41 +0000
 Description: APT repository for Tildr
 Label: Tildr APT Repository
 Origin: Tildr
 Suite: stable
 MD5Sum:
- 678f5d87e75c6ccf1eef002872046ef9              187 Release
+ 3213ad189ee8bab8da07464d06c41557              187 Release
  180efa8f7229ecc5e8c534060a9d3993              853 main/binary-amd64/Packages
- 09b45bdeaa8ddc9ec842873e0f42c451              576 main/binary-amd64/Packages.gz
+ accd2da52e0bdbcdcb90ba2b2629a9f0              576 main/binary-amd64/Packages.gz
 SHA1:
- fe057c0fe64872d5c7ac51d46af807ee3a4f7b0e              187 Release
+ 457dfb1c5855161ee9ef8487fcd19c331ee30061              187 Release
  219fcd53dfb853d3aa3430436b375eb8026b9153              853 main/binary-amd64/Packages
- 9587499e694a83ef7d9cea9a39f6dd16ea0eb028              576 main/binary-amd64/Packages.gz
+ 92cec8829daccb6025178f0a1b72ffcac27b967f              576 main/binary-amd64/Packages.gz
 SHA256:
- 9b2ebddac48bc5ea9b9a74343449f781b33a0afa61e0cc692da94be0c14ad34b              187 Release
+ eab3b2a2a965c7d567f8f9cabcc9de18eb8ecae4c41ad8becd563710271c4742              187 Release
  2c127dcf45378c5a0f1513d35605521905c4265aa5de0be90cd2b035acdb194f              853 main/binary-amd64/Packages
- 05152d6a71ce70c25fd09acf580e01f3bb59e87023646485c359fe9d273395d0              576 main/binary-amd64/Packages.gz
+ cc9dbaa4d8d40beee7887f7e6b9df4479bb2e3bb64fb5f27c132bf1e13f38d7e              576 main/binary-amd64/Packages.gz
 SHA512:
- ddcf4431198b805be1028cd89b4c96ea55287e6adbf11a42990ffd9f0e627a088308e82d679bb3c2a8bee88f8caed64d448860f2da2fec074a07b3d56201c650              187 Release
+ 93ad68b5c86bdd3d4a6fb9e0f9ccb2fe6ff7516b18474c86034cce3d2c9868e520b03a6a6ec6555fd1e5e72b28c4e4bb08c89f966efc2168cb8e8f38a787c633              187 Release
  ceda070e7c78324f77bfa9b79fea0e34fe52055e39587f21adc3fc4fca0c326bd68a21884f54e1febdbeda9be36f77814125c625493b783bf20456df0eac15e5              853 main/binary-amd64/Packages
- 90a4008a9a8ad68b0dfab310461833cdcd1d16fc44632238c7940d22390d6bfeb0553b56bf09c52abc5dfecfcc3b86a9e1a39da1259b5c507d6810340e91b41a              576 main/binary-amd64/Packages.gz
+ a46846ea60309f5b0434b68a11df4363c4a19272cbe0ee16ff5c925f74dae0dfc8b60490ac3ce4d0c0a18ca7590d966a2d303a2b251861adac6150ea1776ff75              576 main/binary-amd64/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE3igUnoKkblGCxC5xb8SQYTAgM2gFAmpT4JcACgkQb8SQYTAg
-M2h9bRAAnisLBf6Kpq3MXpjghsapcVwQcISEsfuZKykzmCOb4UHnLw3qujrGzRC7
-6W726G54Adaz8Tlwr0L3r38A0Cnx7vYmGDfU0O6olb9iTMy13/e7w7AQKXc3dvJ5
-Jt0BLyeW/PnFkS6Dbe1BUjDNH4+G8GcECudKloskpzj2MTWvYO+aT4tNavAmrKtd
-QWjCX6U1JOswfLuEr+Ts27a0ulosYx456GK7xs8xmUzgFz8aXYDMTnt9u5RZmrld
-e5VhziCpo+/D7bKi4AvkaD7mVqYgsxvs4BoUHqhTZjvOYrBlgpFlchAqL66t63eJ
-zSWY67Ya1sRhStcFezVyzgjBbdiMQ36ZWx/doozEmvqlyhO6gmgI7gpHwkzGsuY6
-/sqZ4I6F1fL2SYQFfqJpQnVfbpHPusyEWy0XmxAvnPA9GiFxBO8xTzROdmhixa4f
-pM7y4IiR/VgQV9B4qHmh6JPt/oe9C9geUOJRPko1is5cr6MWyMu3T2vFGED5nvh4
-n3uZ/J1k6SR0ukDsrv9xRyYhFvn/VJe+aWtXdxRWtDHI6NU6WXRsJ71t2X6l4gzB
-tgE5yiywHwtu6xTXMLoJyKibEcToGpqfpNpq9KbtDZDG5gSZ8FOhlkzc3yTFuGrm
-dRaQdA9A4EtBIDT+Q0LPC3mAe7iKHArsJiM20NB/FYF8byxMuwg=
-=1gSe
+iQIzBAEBCgAdFiEE3igUnoKkblGCxC5xb8SQYTAgM2gFAmpUSKkACgkQb8SQYTAg
+M2jQdhAAzmf7qROUvdFfoQJpi+0oaijPeynyMP5a/25DvPyQXZWA34YJp/aqxdxA
+cjEkyupfBh6/jE2K9m5lTqp3Wkmf8YEoOo1XV/Hz2+BskzOuo7Sn8vBjFCvpN/3U
+3nwSnSEvjTQsLUyNLN8IuOcjJ0uZUiXph9SneBPE5b28DF74eLutqPsisACoKRgY
+VKLWMrNnVeK4ldSilin9AMnpW3+A4UKc9vn42nBxLBtNxkVxwwj1Y7SmWfKpG76L
+wZJprOVphAOsEAYnBAJ0S647ZCQf4UPu8/RMPnHUW6YV02K9irSPo5rTBg1UesPn
+yoD7bAqmclIEyX4ZfIHrFNC7W6t6IxmQH77QmKKdLDdPU4FRVCUjtWD0SRtBURSC
+0eDtnzfvNRuuPukWlkMC+SsfuSPqxFqS01WoG4tHs9rBrgNza8voLgnwOgNNjeHs
+pwn1aeKoVFuCAg596EvcC/a0pU6oADGPp8B1LucHowTQJmJscLhs3tn2Wd1VVdaC
+uRQePnmF/j04XnyY/KsjDJzIt3f1pGOeN7qnVkvuwscVXn7jLk0xQ4Y+1yh6tc3e
+8nTzEFYtRp9gg14xiRQaqg4YUHhIi3MzqbTFf8v3yPqxmVT5qQysw+6r060rZfXb
+HLQ9VMwA8c89CnmKmKY1TBlXPpguY+WndQ/u1Hy6zhSqr0x2T7g=
+=LsJh
 -----END PGP SIGNATURE-----
