@@ -195,7 +195,7 @@ make push-lease    # push --force-with-lease to all remotes
 ## APT repository structure (after publish)
 
 ```
-https://orbitbits.com/tildr-deb/  (also reachable at https://orbitbits.github.io/tildr-deb/)
+https://deb.orbitbits.com/  (also reachable at https://orbitbits.github.io/tildr-deb/)
 ├── tildr-deb-pub.gpg
 ├── pool/
 │   └── main/

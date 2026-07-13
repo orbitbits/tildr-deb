@@ -13,10 +13,10 @@
 
 ```sh
 # Import GPG key
-curl -fsSL https://orbitbits.com/tildr-deb/tildr-deb-pub.gpg | sudo gpg --dearmor -o /usr/share/keyrings/tildr.gpg
+curl -fsSL https://deb.orbitbits.com/tildr-deb-pub.gpg | sudo gpg --dearmor -o /usr/share/keyrings/tildr.gpg
 
 # Add repository
-echo "deb [signed-by=/usr/share/keyrings/tildr.gpg] https://orbitbits.com/tildr-deb/ stable main" | sudo tee /etc/apt/sources.list.d/tildr.list
+echo "deb [signed-by=/usr/share/keyrings/tildr.gpg] https://deb.orbitbits.com/ stable main" | sudo tee /etc/apt/sources.list.d/tildr.list
 
 # Install
 sudo apt update && sudo apt install tildr
