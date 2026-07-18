@@ -1,5 +1,5 @@
-tildr (0.1.0-1) unstable; urgency=medium
+tildr (0.2.0-1) unstable; urgency=medium
 
-  * Initial DEB package.
+  * Bump version to 0.2.0.
 
- -- William Canin <hello.williamcanin@gmail.com>  Fri, 11 Jul 2026 00:00:00 +0000
+ -- William Canin <hello.williamcanin@gmail.com>  Sat, 12 Jul 2026 00:00:00 +0000
