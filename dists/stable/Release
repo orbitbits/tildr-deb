@@ -1,24 +1,24 @@
 Architectures: amd64
 Codename: stable
 Components: main
-Date: Mon, 13 Jul 2026 02:08:41 +0000
+Date: Sat, 18 Jul 2026 15:41:15 +0000
 Description: APT repository for Tildr
 Label: Tildr APT Repository
 Origin: Tildr
 Suite: stable
 MD5Sum:
- 3213ad189ee8bab8da07464d06c41557              187 Release
- 180efa8f7229ecc5e8c534060a9d3993              853 main/binary-amd64/Packages
- accd2da52e0bdbcdcb90ba2b2629a9f0              576 main/binary-amd64/Packages.gz
+ 55a9e6634434818f8c1067acfd3c928c              187 Release
+ 5c780f787038c6348476d9ee6c764681              853 main/binary-amd64/Packages
+ 286b88b9fa77bb2922db81529ff798f0              577 main/binary-amd64/Packages.gz
 SHA1:
- 457dfb1c5855161ee9ef8487fcd19c331ee30061              187 Release
- 219fcd53dfb853d3aa3430436b375eb8026b9153              853 main/binary-amd64/Packages
- 92cec8829daccb6025178f0a1b72ffcac27b967f              576 main/binary-amd64/Packages.gz
+ ea91782426b84b5835be33f3ae4e5f6106a413ba              187 Release
+ 20531ab8917cceb98ffc3393d2d1a872512a724a              853 main/binary-amd64/Packages
+ 03b703b9c21cf99f72cd21f4bb6240b0623f4566              577 main/binary-amd64/Packages.gz
 SHA256:
- eab3b2a2a965c7d567f8f9cabcc9de18eb8ecae4c41ad8becd563710271c4742              187 Release
- 2c127dcf45378c5a0f1513d35605521905c4265aa5de0be90cd2b035acdb194f              853 main/binary-amd64/Packages
- cc9dbaa4d8d40beee7887f7e6b9df4479bb2e3bb64fb5f27c132bf1e13f38d7e              576 main/binary-amd64/Packages.gz
+ 1015b76fa4fa0ae4760167fe226db7d3b8ff919b011b83dedbb8912b6e7cb6d1              187 Release
+ d309e7a05316563cfee9540593bcb0881e3babe2d2a3b0053ebf6a9856b9b19d              853 main/binary-amd64/Packages
+ f897dff32d15d19b62a5673e3ec67a502f97df2646995b34f40409d146351f6a              577 main/binary-amd64/Packages.gz
 SHA512:
- 93ad68b5c86bdd3d4a6fb9e0f9ccb2fe6ff7516b18474c86034cce3d2c9868e520b03a6a6ec6555fd1e5e72b28c4e4bb08c89f966efc2168cb8e8f38a787c633              187 Release
- ceda070e7c78324f77bfa9b79fea0e34fe52055e39587f21adc3fc4fca0c326bd68a21884f54e1febdbeda9be36f77814125c625493b783bf20456df0eac15e5              853 main/binary-amd64/Packages
- a46846ea60309f5b0434b68a11df4363c4a19272cbe0ee16ff5c925f74dae0dfc8b60490ac3ce4d0c0a18ca7590d966a2d303a2b251861adac6150ea1776ff75              576 main/binary-amd64/Packages.gz
+ f946b77fa417093496db02ca96de08d2e1ef7b603815984109b39e0f2ecbd2e16bda9ec2fc25864909b03fc76ef3ad8378170bcc0b2fb0aac35df899043db981              187 Release
+ 486860bdec85f3485cc89857e67270fefe6f522c838c5f9e29fb86772fcacc6e7fd48ed35de1bbf94843f9f9f88dbe98989eed8317ddc35f69944592bc800ffc              853 main/binary-amd64/Packages
+ 3ab03d02b35744fab6e537a5ec3e1b2b7de44c207049ef3e5560336229f4cdf36d416589c5f83a5d7321f3ca04bf24c281bdfc23f7016472b717eaadab102534              577 main/binary-amd64/Packages.gz
