@@ -1,15 +1,15 @@
 Package: tildr
-Version: 0.3.0
+Version: 0.3.1
 Architecture: amd64
 Maintainer: William Canin <hello.williamcanin@gmail.com>
-Installed-Size: 5472
+Installed-Size: 4048
 Depends: git, less
 Recommends: nautilus-python, dolphin
-Filename: pool/main/tildr_0.3.0_amd64.deb
-Size: 1613450
-MD5sum: 91e804af62e1d73391ab06c81a92b6d8
-SHA1: 46ef7cb8002c746b42371952e2d7415ee86648c5
-SHA256: dfeca46c3f3f6ae5ef856030afb86cc0ff830af1e5daf83761f3156b7b01ce66
+Filename: pool/main/tildr_0.3.1_amd64.deb
+Size: 1323884
+MD5sum: 1366b5fa90e32bdf22564c978e3dafc6
+SHA1: fcc7428e267471c4b3a782f5996d2b25ce4f6e7d
+SHA256: 1c3f928894461c87c0ed2c1ec8a13ee42b24c77de6f22a77b506f6e02aed70ed
 Section: utils
 Priority: optional
 Homepage: https://orbitbits.com/tildr
